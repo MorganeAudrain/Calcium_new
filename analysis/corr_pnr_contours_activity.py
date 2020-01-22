@@ -9,33 +9,22 @@ Created on Mon Oct  7 15:00:09 2019
 import os
 import sys
 import numpy as np
+import configuration
+import mysql.connector
+import getpass
 
+database = mysql.connector.connect(
+  host="131.174.140.253",
+  user="morgane",
+  passwd=getpass.getpass(),
+    database="Calcium_imaging",
+    use_pure=True
+)
 
+mycursor = database.cursor()
 
-# This should be in another file. Let's leave it here for now
-sys.path.append('/home/sebastian/Documents/Melisa/calcium_imaging_analysis/src/')
-sys.path.append('/home/sebastian/Documents/Melisa/calcium_imaging_analysis/src/steps/')
-sys.path.remove('/home/sebastian/Documents/calcium_imaging_analysis')\
-#%% ENVIRONMENT VARIABLES
-os.environ['PROJECT_DIR_LOCAL'] = '/home/sebastian/Documents/Melisa/calcium_imaging_analysis/'
-os.environ['PROJECT_DIR_SERVER'] = '/scratch/mmaidana/calcium_imaging_analysis/'
-os.environ['CAIMAN_DIR_LOCAL'] = '/home/sebastian/CaImAn/'
-os.environ['CAIMAN_DIR_SERVER'] ='/scratch/mamaidana/CaImAn/'
-os.environ['CAIMAN_ENV_SERVER'] = '/scratch/mmaidana/anaconda3/envs/caiman/bin/python'
-
-os.environ['LOCAL_USER'] = 'sebastian'
-os.environ['SERVER_USER'] = 'mmaidana'
-os.environ['SERVER_HOSTNAME'] = 'cn76'
-os.environ['ANALYST'] = 'Meli'
-
-#%% PROCESSING
-os.environ['LOCAL'] = str((os.getlogin() == os.environ['LOCAL_USER']))
-os.environ['SERVER'] = str(not(eval(os.environ['LOCAL'])))
-os.environ['PROJECT_DIR'] = os.environ['PROJECT_DIR_LOCAL'] if eval(os.environ['LOCAL']) else os.environ['PROJECT_DIR_SERVER']
-os.environ['CAIMAN_DIR'] = os.environ['CAIMAN_DIR_LOCAL'] if eval(os.environ['LOCAL']) else os.environ['CAIMAN_DIR_SERVER']
 
 import matplotlib.pyplot as plt
-import data_base_manipulation as db
 
 #%%
 #Caiman importation
@@ -45,16 +34,8 @@ import caiman.source_extraction.cnmf as cnmf
 import caiman.base.rois
 from caiman.source_extraction.cnmf.cnmf import load_CNMF
 
-
-import data_base_manipulation as db
-import matplotlib.pyplot as plt
-from component_evaluation import main as main_component_evaluation
-from source_extraction import get_fig_C_stacked as get_fig_C_stacked
-
-# Paths 
-analysis_states_database_path = 'references/analysis/analysis_states_database.xlsx'
-backup_path = 'references/analysis/backup/'
-parameters_path = 'references/analysis/parameters_database.xlsx'
+from steps.component_evaluation import main as main_component_evaluation
+from steps.source_extraction import get_fig_C_stacked as get_fig_C_stacked
 
 #%%
 
@@ -64,6 +45,10 @@ states_df = db.open_analysis_states_database()
 ## Select all the data corresponding to a particular mouse. Ex: 56165
 
 selected_rows = db.select('decoding',56165)
+sql ="SELECT decoding_main FROM Analysis WHERE mouse=%s "
+val=[mouse,session,trial,is_rest]
+mycursor.execute(sql,val)
+myresult = mycursor.fetchone()
 
 ## plot countours
 

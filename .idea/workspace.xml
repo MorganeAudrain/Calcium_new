@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25bccc4e-ed1b-4734-8005-829ad2bd59b4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Database_orga.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/create_database.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_base_manipulation.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/paths.py.ods" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/analysis/corr_pnr_contours_activity.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis/corr_pnr_contours_activity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/steps/cropping.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/steps/decoding.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,7 +184,7 @@
       <workItem from="1579682596824" duration="5872000" />
       <workItem from="1579689201584" duration="960000" />
       <workItem from="1579690174071" duration="490000" />
-      <workItem from="1579691177999" duration="551000" />
+      <workItem from="1579691177999" duration="1552000" />
     </task>
     <servers />
   </component>

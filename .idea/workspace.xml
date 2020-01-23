@@ -3,9 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="25bccc4e-ed1b-4734-8005-829ad2bd59b4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analysis/corr_pnr_contours_activity.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis/corr_pnr_contours_activity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/steps/cropping.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/steps/decoding.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Database/Database_orga.py" beforeDir="false" afterPath="$PROJECT_DIR$/Database/Database_orga.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Parameters_settings/parameters_setting_cropping.py" beforeDir="false" afterPath="$PROJECT_DIR$/Parameters_settings/parameters_setting_cropping.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analysis/analysis_files_manipulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis/analysis_files_manipulation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analysis/figures.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis/figures.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analysis/photobleaching.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis/photobleaching.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,7 +186,7 @@
       <workItem from="1579682596824" duration="5872000" />
       <workItem from="1579689201584" duration="960000" />
       <workItem from="1579690174071" duration="490000" />
-      <workItem from="1579691177999" duration="1552000" />
+      <workItem from="1579691177999" duration="3039000" />
     </task>
     <servers />
   </component>

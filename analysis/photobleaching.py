@@ -5,63 +5,31 @@ Created on Mon Oct  7 15:00:09 2019
 
 @author: sebastian and Casper
 modified November 2019 by Melisa
+modified January 2020 by Morgane
 """
 
-import os
-import sys
 import numpy as np
-
-
-
-# This should be in another file. Let's leave it here for now
-sys.path.append('/home/sebastian/Documents/Melisa/calcium_imaging_analysis/src/')
-sys.path.append('/home/sebastian/Documents/Melisa/calcium_imaging_analysis/src/steps/')
-sys.path.remove('/home/sebastian/Documents/calcium_imaging_analysis')\
-#%% ENVIRONMENT VARIABLES
-os.environ['PROJECT_DIR_LOCAL'] = '/home/sebastian/Documents/Melisa/calcium_imaging_analysis/'
-os.environ['PROJECT_DIR_SERVER'] = '/scratch/mmaidana/calcium_imaging_analysis/'
-os.environ['CAIMAN_DIR_LOCAL'] = '/home/sebastian/CaImAn/'
-os.environ['CAIMAN_DIR_SERVER'] ='/scratch/mamaidana/CaImAn/'
-os.environ['CAIMAN_ENV_SERVER'] = '/scratch/mmaidana/anaconda3/envs/caiman/bin/python'
-
-os.environ['LOCAL_USER'] = 'sebastian'
-os.environ['SERVER_USER'] = 'mmaidana'
-os.environ['SERVER_HOSTNAME'] = 'cn76'
-os.environ['ANALYST'] = 'Meli'
-
-#%% PROCESSING
-os.environ['LOCAL'] = str((os.getlogin() == os.environ['LOCAL_USER']))
-os.environ['SERVER'] = str(not(eval(os.environ['LOCAL'])))
-os.environ['PROJECT_DIR'] = os.environ['PROJECT_DIR_LOCAL'] if eval(os.environ['LOCAL']) else os.environ['PROJECT_DIR_SERVER']
-os.environ['CAIMAN_DIR'] = os.environ['CAIMAN_DIR_LOCAL'] if eval(os.environ['LOCAL']) else os.environ['CAIMAN_DIR_SERVER']
-
+import configuration
 import matplotlib.pyplot as plt
-import src.data_base_manipulation as db
-
-#%%
-#Caiman importation
-import caiman as cm
-from caiman.utils.visualization import inspect_correlation_pnr
-import caiman.source_extraction.cnmf as cnmf
-import caiman.base.rois
 from caiman.source_extraction.cnmf.cnmf import load_CNMF
+import mysql.connector
+import getpass
 
-import matplotlib.pyplot as plt
-from src.steps.component_evaluation import run_component_evaluation as main_component_evaluation
+database = mysql.connector.connect(
+  host="131.174.140.253",
+  user="morgane",
+  passwd=getpass.getpass(),
+    database="Calcium_imaging",
+    use_pure=True
+)
 
-# Paths 
-analysis_states_database_path = 'references/analysis/analysis_states_database.xlsx'
-backup_path = 'references/analysis/backup/'
-parameters_path = 'references/analysis/parameters_database.xlsx'
+mycursor = database.cursor()
+
+
+from steps.component_evaluation import run_component_evaluation as main_component_evaluation
+
 
 #%%
-
-
-## Open thw data base with all data
-states_df = db.open_analysis_states_database()
-## Select all the data corresponding to a particular mouse. Ex: 56165
-
-#selected_rows = db.select('decoding',56165)
 
 mouse_number = 56165
 session = 1
@@ -69,12 +37,15 @@ init_trial = 6
 end_trial = 11
 is_rest = 1
 
-selected_rows = db.select(states_df,'source_extraction',mouse = mouse_number, session = session, is_rest = is_rest,
-                          decoding_v= None,
-                          cropping_v = 1,
-                          motion_correction_v=1,
-                          source_extraction_v = 1, alignment_v= 0, max_version= False)
-selected_rows = selected_rows.query('trial > 5')
+sql ="SELECT * FROM Analysis WHERE mouse=%s AND session= %s AND is_rest=%s AND cropping_v =%s AND motion_correction_v =%s AND source_extraction_v=%s AND alignment_v=%s ORDER BY trial > 5"
+val=[mouse_number,session,is_rest,1,1,1,0]
+mycursor.execute(sql,val)
+myresult = mycursor.fetchone()
+
+for x in myresult:
+    selected_rows= x
+
+
 
 corr_mean_array = []
 pnr_mean_array = []

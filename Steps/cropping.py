@@ -19,7 +19,6 @@ database = mysql.connector.connect(
 mycursor = database.cursor()
 
 
-
 def run_cropper(input_path):
     '''
     This function takes in a decoded analysis state and crops it according to 
@@ -34,7 +33,7 @@ def run_cropper(input_path):
     '''
 
     # Determine output .tif file path
-    sql="SELECT mouse,session,trial,is_rest,decoding_v,cropping_v FROM Analysis WHERE decoding_main=%s "
+    sql="SELECT mouse,session,trial,is_rest,decoding_v,cropping_v FROM Analysis WHERE decoding_main=%s ORDER BY cropping_v"
     val=[input_path,]
     mycursor.execute(sql,val)
     myresult = mycursor.fetchall()

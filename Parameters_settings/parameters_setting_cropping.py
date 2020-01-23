@@ -21,8 +21,8 @@ to set the cropping parameters in the parameters data base for all the sessions 
 
 """
 
-from steps.cropping import run_cropper as main_cropping
-from steps.cropping import database
+from Steps.cropping import run_cropper as main_cropping
+from Steps.cropping import database
 from analysis.figures import plot_movie_frame, plot_movie_frame_cropped
 
 mycursor = database.cursor()

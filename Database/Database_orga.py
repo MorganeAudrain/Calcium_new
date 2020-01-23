@@ -104,8 +104,8 @@ mycursor.execute("")
 mycursor.execute("SELECT * FROM Analysis  ")
 
 myresult = mycursor.fetchall()
-
+data=[]
 for x in myresult:
-  print(x)
+  data +=x
 
 

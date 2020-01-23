@@ -5,33 +5,63 @@ import numpy as np
 import caiman as cm
 import datetime
 import pickle
-import data_base_manipulation as db
+import mysql.connector
+import getpass
 
-def get_corr_pnr(index, row, gSig=None):
-    ''' This function gets an analysis state and a gSig absolute value
-    and creates correlation and pnr images for it.'''
+database = mysql.connector.connect(
+  host="131.174.140.253",
+  user="morgane",
+  passwd=getpass.getpass(),
+    database="Calcium_imaging",
+    use_pure=True
+)
+
+mycursor = database.cursor()
+
+
+
+def get_corr_pnr(input_mmap_file_path, gSig=None):
+
+    """
+    This function gets an analysis state and a gSig absolute value
+    and creates correlation and pnr images for it.
+    """
     # Define data directory
+
     data_dir = 'data/interim/source_extraction/trial_wise/'
     if type(gSig) == type(None):
-        gSig = db.get_parameters('source_extraction', index[0], index[1], index[2], index[3])['gSig'][0]
+        sql = "SELECT gSig FROM Analysis WHERE motion_correctioni_main=%s "
+        val = [input_mmap_file_path, ]
+        mycursor.execute(sql, val)
+        myresult = mycursor.fetchall()
+        for x in myresult:
+            gSig = x
 
-    motion_correction_output = eval(row['motion_correction_output'])
-    input_mmap_file_path = motion_correction_output['main']
     # Compute summary images
     t0 = datetime.datetime.today()
-    logging.info(f'{index} Computing summary images')
+    logging.info('Computing summary images')
 
     if os.path.isfile(input_mmap_file_path):
         Yr, dims, T = cm.load_memmap(input_mmap_file_path)
-        logging.debug(f'{index} Loaded movie. dims = {dims}, T = {T}.')
+        logging.debug(f' Loaded movie. dims = {dims}, T = {T}.')
         images = Yr.T.reshape((T,) + dims, order='F')
     else:
-        logging.warning(f'{index} .mmap file does not exist. Cancelling')
-        return index, row
+        logging.warning('.mmap file does not exist. Cancelling')
+
     cn_filter, pnr = cm.summary_images.correlation_pnr(images[::1], gSig=gSig, swap_dim=False)
     dt = int((datetime.datetime.today() - t0).seconds / 60)  # timedelta in minutes
-    logging.info(f'{index} Computed summary images. dt = {dt} min')
+    logging.info(f' Computed summary images. dt = {dt} min')
     # Saving summary images as npy files
+    sql="SELECT mouse,session,trial,is_rest,decoding_v,cropping_v FROM Analysis WHERE motion_correction_main=%s "
+    val=[input_mmap_file_path,]
+    mycursor.execute(sql,val)
+    myresult = mycursor.fetchall()
+    data=[]
+    for x in myresult:
+        data += x
+
+    file_name = f"mouse_{data[0]}_session_{data[1]}_trial_{data[2]}.{data[3]}.v{data[5]}.{data[4]}"
+    output_tif_file_path = f"data/interim/cropping/main/{file_name}.tif"
     corr_npy_file_path = data_dir + f'meta/corr/{db.create_file_name(3, index)}_gSig_{gSig}.npy'
     pnr_npy_file_path = data_dir + f'meta/pnr/{db.create_file_name(3, index)}_gSig_{gSig}.npy'
 
@@ -312,107 +342,7 @@ def get_metrics_auxillary(fname, swap_dim, pyr_scale=.5, levels=3,
     return tmpl, smoothness, smoothness_corr, correlations, img_corr, flows, norms
 
 
-#
-# def get_corr_pnr(index, row):
-#    '''
-#    This function computes the correlation and pnr images as numpy arrays for a motion corrected
-#    movie which can be used to set source extraction parameters and in source
-#    extraction itself, namely for initialization.
-#    '''
-#    # Get the parameters, motion correction output and cropping output of this row
-#    parameters = eval(row.loc['motion_correction_parameters'])
-#    output =  eval(row.loc['motion_correction_output'])
-#    cropping_output = eval(row.loc['cropping_output'])
-#
-#    # Determine the corr_pnr file path
-#    fname = db.create_file_name(2, index)
-#    corr_path = f'data/interim/motion_correction/meta/corr/{fname}.npy'
-#    pnr_path = f'data/interim/motion_correction/meta/pnr/{fname}.npy'
-#
-#
-#    logging.info(f'{index} Computing correlation and pnr images for movie')
-#    t0 = datetime.datetime.today()
-#    m_path = output['main']
-#    tmpl_els, crispness_els, crispness_corr_els, correlations_els, img_corr_els, flows_els, norms_els = get_metrics_auxillary(
-#            fname_els, swap_dim = False, winsize = 100, play_flow=False,
-#            resize_fact_flow = .2,  one_photon = True, crispness = crispness,
-#            correlations = correlations, local_correlations = local_correlations,
-#            optical_flow = optical_flow)
-#
-#    dt = int((datetime.datetime.today() - t0).seconds/60) # timedelta in minutes
-#    meta_dict['pw_rigid'] = db.remove_None_from_dict({
-#            'crispness': crispness_els,
-#            'crispness_corr':crispness_corr_els,
-#            'correlations': correlations_els,
-#            'local_correlations': img_corr_els,
-#            'flows': flows_els,
-#            'norms': norms_els })
-#    output['meta']['duration']['corr_pnr'] = dt
-#    logging.info(f'{index} Computed correlation and pnr images for movie. dt = {dt} min')
-#
-#    # Save the metrics in a pkl file
-#    logging.info(f'{index} Saving metrics')
-#    with open(metrics_pkl_file_path, 'wb') as f:
-#        pickle.dump(meta_dict, f)
-#    logging.info(f'{index} Saved metrics')
-#
-#    # Store the new output in the master file list
-#    row.loc['motion_correction_output'] = str(output)
-# master_df = db.open_analysis_states_database()
-# master_df = db.append_to_or_merge_with_states_df(master_df, row)
-#    return
 
-# %% FIGURES
-
-
-# def get_figs(index, row, save_fig = False):
-#     # Define the figure title
-#    fig_title = 'Metrics'
-#
-#    ## GET THE DATA
-#    # Get the mouse and session
-#    mouse, session = (index[i] for i in [0,1])
-#    # Load the metrics
-#    with open(output['meta']['metrics'], 'rb') as f:
-#        metrics = pickle.load(f)
-#
-#    ## CREATE THE FIGURE
-#    # Create the figure
-#    fig, axes = plt.subplots(4, 3)
-#    # Set the figure size
-#    fig.set_size_inches(15., 15.)
-#    # Plot shifts
-#
-#
-#    # Plot min, mean and max values
-#    ax_min.plot(a_min)
-#    ax_mean.plot(a_mean)
-#    ax_max.plot(a_max)
-#    # Set the labels
-#    ax_min.set_xlabel('frames') ; ax_mean.set_xlabel('frames') ; ax_max.set_xlabel('frames')
-#    ax_min.set_ylabel('min') ; ax_mean.set_ylabel('mean') ; ax_max.set_ylabel('max')
-#    # Get the xticks
-#    ax_min_xticks, ax_mean_xticks, ax_max_xticks = (ax.get_xticks() for ax in [ax_min, ax_mean, ax_max])
-#    # Get the xlabels
-#    ax_min_xticklabels, ax_mean_xticklabels, ax_max_xticklabels = (ax.get_xticklabels() for ax in [ax_min, ax_mean, ax_max])
-#    # Append the movie starting points to the xticks
-#    ax_min_xticks = np.append(ax_min_xticks, a_starting_points[:,1]) ; ax_mean_xticks = np.append(ax_mean_xticks, a_starting_points[:,1]) ; ax_max_xticks =  np.append(ax_max_xticks, a_starting_points[:,1])
-#    # Append the trial names to the xticklabels
-#    ax_min_xticklabels = np.append(ax_min_xticklabels, a_starting_points[:,0]) ; ax_mean_xticklabels = np.append(ax_mean_xticklabels, a_starting_points[:,0]) ; ax_max_xticklabels = np.append(ax_max_xticklabels, a_starting_points[:,0])
-#    # Set the xticks
-#    ax_min.set_xticks(ax_min_xticks) ; ax_mean.set_xticks(ax_mean_xticks) ; ax_max.set_xticks(ax_max_xticks)
-#    # Set the xticklabels
-#    ax_min.set_xticklabels(ax_min_xticklabels) ; ax_mean.set_xticklabels(ax_mean_xticklabels) ; ax_max.set_xticklabels(ax_max_xticklabels)
-#    # Set the y limits
-#    for i, ax in enumerate(axes): ax.set_ylim(np.percentile(arrays[i], .1), np.percentile(arrays[i], 99.99))
-#    # Set the figure plot
-#    fig.suptitle(f"{fig_title} \n step: {step} \n data: ({mouse}, {session})")
-#    if save_fig:
-#        # Define the figure directory
-#        fig_dir = 'data/interim/decoding/meta/figures/session_wise/min_mean_max/'
-#        # Save the figure
-#        fig.savefig(fig_dir + db.create_file_name(step_index, index) + '.png')
-#
 
 def make_figures(index, row, force=False):
     # Create file name

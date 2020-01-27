@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25bccc4e-ed1b-4734-8005-829ad2bd59b4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Database/database_connection.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Database/Database_orga.py" beforeDir="false" afterPath="$PROJECT_DIR$/Database/Database_orga.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Parameters_settings/parameters_setting_cropping.py" beforeDir="false" afterPath="$PROJECT_DIR$/Parameters_settings/parameters_setting_cropping.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Steps/cropping.py" beforeDir="false" afterPath="$PROJECT_DIR$/Steps/cropping.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Steps/decoding.py" beforeDir="false" afterPath="$PROJECT_DIR$/Steps/decoding.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analysis/figures.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis/figures.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analysis/metrics.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis/metrics.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configuration.py" beforeDir="false" afterPath="$PROJECT_DIR$/configuration.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parameter_setting/parameter_setting_motion_correction.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/steps/motion_correction.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -205,12 +195,24 @@
       <workItem from="1580134573523" duration="101000" />
       <workItem from="1580134760692" duration="78000" />
       <workItem from="1580134978118" duration="528000" />
-      <workItem from="1580143924228" duration="603000" />
+      <workItem from="1580143924228" duration="880000" />
     </task>
+    <task id="LOCAL-00001" summary="upgrade">
+      <created>1580144691280</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1580144691280</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="upgrade" />
+    <option name="LAST_COMMIT_MESSAGE" value="upgrade" />
   </component>
   <component name="WindowStateProjectService">
     <state x="3283" y="370" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1576747095218">
@@ -222,10 +224,11 @@
       <screen x="67" y="27" width="2493" height="1413" />
     </state>
     <state x="1046" y="481" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/67.27.2493.1413/2560.0.2560.1440@67.27.2493.1413" timestamp="1575889458681" />
-    <state x="3405" y="315" width="860" height="807" key="CommitChangelistDialog2" timestamp="1579691735948">
+    <state x="3315" y="170" width="860" height="807" key="CommitChangelistDialog2" timestamp="1580144843236">
       <screen x="2560" y="0" width="2560" height="1440" />
     </state>
     <state x="3405" y="315" width="860" height="807" key="CommitChangelistDialog2/67.27.2493.1413/2560.0.2560.1440@2560.0.2560.1440" timestamp="1579691735948" />
+    <state x="3315" y="170" width="860" height="807" key="CommitChangelistDialog2/67.27.2493.1413/2560.0.2560.1440@67.27.2493.1413" timestamp="1580144843236" />
     <state x="1781" y="448" width="424" height="484" key="FileChooserDialogImpl" timestamp="1579776975720">
       <screen x="67" y="27" width="2493" height="1413" />
     </state>

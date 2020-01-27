@@ -21,11 +21,11 @@ to set the cropping parameters in the parameters data base for all the sessions 
 
 """
 
-from Steps.cropping import run_cropper as main_cropping
-from Steps.cropping import database
-from analysis.figures import plot_movie_frame, plot_movie_frame_cropped
 
-mycursor = database.cursor()
+from Database.database_connection import database
+from analysis.figures import plot_movie_frame, plot_movie_frame_cropped
+from Steps.cropping import run_cropper
+cursor = database.cursor()
 
 #selection of data to crop. Take into account that cropping is more or less the same for every session in one mouse.
 mouse = 32364
@@ -35,19 +35,19 @@ is_rest = 1
 # CROPPING
 
 sql ="SELECT decoding_main FROM Analysis WHERE mouse=%s AND session= %s AND trial =%s AND is_rest=%s  "
-val=[mouse,session,trial,is_rest]
-mycursor.execute(sql,val)
-myresult = mycursor.fetchone()
+val = [mouse, session, trial, is_rest]
+cursor.execute(sql, val)
+var = cursor.fetchone()
 
-for x in myresult:
-    mouse_row= x
+for x in var:
+    mouse_row = x
 
 #shows one frame of the movie so the cropping region can be choosen.
 plot_movie_frame(mouse_row)
 
 #manualy load the cropping region of interest
 
-mouse_row = main_cropping(mouse_row)
+mouse_row = run_cropper(mouse_row)
 
 plot_movie_frame_cropped(mouse_row)
 

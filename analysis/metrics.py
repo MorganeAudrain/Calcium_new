@@ -20,8 +20,8 @@ import caiman as cm
 import pylab as pl
 from caiman.motion_correction import MotionCorrect
 
-import data_base_manipulation as db
-import analysis_files_manipulation as fm
+
+import analysis.analysis_files_manipulation as fm
 
 import scipy
 import cv2

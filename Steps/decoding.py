@@ -7,20 +7,9 @@
 import os
 import subprocess
 import configuration
-
-import mysql.connector
-
-# connection to SQL
-
-database = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  passwd="M-A-so-1996",
-    database="Calcium_imaging",
-    use_pure=True
-)
-
+from Database.database_connection import database
 mycursor = database.cursor()
+
 
 
 

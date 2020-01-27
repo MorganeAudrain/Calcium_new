@@ -101,7 +101,7 @@ mycursor.execute("")
 
 #%% check if data in column
 
-mycursor.execute("SELECT * FROM Analysis  ")
+mycursor.execute("SELECT input FROM Analysis  ")
 
 myresult = mycursor.fetchall()
 data=[]

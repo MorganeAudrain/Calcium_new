@@ -2,12 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25bccc4e-ed1b-4734-8005-829ad2bd59b4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Database/database_connection.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Database/Database_orga.py" beforeDir="false" afterPath="$PROJECT_DIR$/Database/Database_orga.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Parameters_settings/parameters_setting_cropping.py" beforeDir="false" afterPath="$PROJECT_DIR$/Parameters_settings/parameters_setting_cropping.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analysis/analysis_files_manipulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis/analysis_files_manipulation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Steps/cropping.py" beforeDir="false" afterPath="$PROJECT_DIR$/Steps/cropping.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Steps/decoding.py" beforeDir="false" afterPath="$PROJECT_DIR$/Steps/decoding.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/analysis/figures.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis/figures.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analysis/photobleaching.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis/photobleaching.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analysis/metrics.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis/metrics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configuration.py" beforeDir="false" afterPath="$PROJECT_DIR$/configuration.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parameter_setting/parameter_setting_motion_correction.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/steps/motion_correction.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,7 +191,21 @@
       <workItem from="1579682596824" duration="5872000" />
       <workItem from="1579689201584" duration="960000" />
       <workItem from="1579690174071" duration="490000" />
-      <workItem from="1579691177999" duration="3039000" />
+      <workItem from="1579691177999" duration="8265000" />
+      <workItem from="1579777159899" duration="138000" />
+      <workItem from="1579784778593" duration="22000" />
+      <workItem from="1579784821453" duration="339000" />
+      <workItem from="1579786066357" duration="773000" />
+      <workItem from="1579787764556" duration="6551000" />
+      <workItem from="1579858183084" duration="543000" />
+      <workItem from="1579858740423" duration="2049000" />
+      <workItem from="1580116584663" duration="7068000" />
+      <workItem from="1580129669547" duration="2133000" />
+      <workItem from="1580134293238" duration="267000" />
+      <workItem from="1580134573523" duration="101000" />
+      <workItem from="1580134760692" duration="78000" />
+      <workItem from="1580134978118" duration="528000" />
+      <workItem from="1580143924228" duration="603000" />
     </task>
     <servers />
   </component>
@@ -207,11 +226,11 @@
       <screen x="2560" y="0" width="2560" height="1440" />
     </state>
     <state x="3405" y="315" width="860" height="807" key="CommitChangelistDialog2/67.27.2493.1413/2560.0.2560.1440@2560.0.2560.1440" timestamp="1579691735948" />
-    <state x="2893" y="394" width="424" height="484" key="FileChooserDialogImpl" timestamp="1578477294367">
-      <screen x="2560" y="0" width="2560" height="1440" />
+    <state x="1781" y="448" width="424" height="484" key="FileChooserDialogImpl" timestamp="1579776975720">
+      <screen x="67" y="27" width="2493" height="1413" />
     </state>
-    <state x="2893" y="394" width="424" height="484" key="FileChooserDialogImpl/67.27.2493.1413/2560.0.2560.1440@2560.0.2560.1440" timestamp="1578477294367" />
-    <state x="1781" y="448" width="424" height="484" key="FileChooserDialogImpl/67.27.2493.1413/2560.0.2560.1440@67.27.2493.1413" timestamp="1575625483878" />
+    <state x="2893" y="394" width="424" height="484" key="FileChooserDialogImpl/67.27.2493.1413/2560.0.2560.1440@2560.0.2560.1440" timestamp="1579703222985" />
+    <state x="1781" y="448" width="424" height="484" key="FileChooserDialogImpl/67.27.2493.1413/2560.0.2560.1440@67.27.2493.1413" timestamp="1579776975720" />
     <state width="2514" height="413" key="GridCell.Tab.0.bottom" timestamp="1576856273027">
       <screen x="2560" y="0" width="2560" height="1440" />
     </state>
@@ -232,11 +251,11 @@
     </state>
     <state width="2514" height="413" key="GridCell.Tab.0.right/67.27.2493.1413/2560.0.2560.1440@2560.0.2560.1440" timestamp="1576856273027" />
     <state width="2447" height="405" key="GridCell.Tab.0.right/67.27.2493.1413/2560.0.2560.1440@67.27.2493.1413" timestamp="1575889719270" />
-    <state x="3315" y="346" key="SettingsEditor" timestamp="1576747072368">
+    <state x="3167" y="208" key="SettingsEditor" timestamp="1580116656428">
       <screen x="2560" y="0" width="2560" height="1440" />
     </state>
-    <state x="3315" y="346" key="SettingsEditor/67.27.2493.1413/2560.0.2560.1440@2560.0.2560.1440" timestamp="1576747072368" />
-    <state x="802" y="367" key="SettingsEditor/67.27.2493.1413/2560.0.2560.1440@67.27.2493.1413" timestamp="1575881120645" />
+    <state x="3167" y="208" key="SettingsEditor/67.27.2493.1413/2560.0.2560.1440@2560.0.2560.1440" timestamp="1580116656428" />
+    <state x="3125" y="336" key="SettingsEditor/67.27.2493.1413/2560.0.2560.1440@67.27.2493.1413" timestamp="1579776999708" />
     <state x="969" y="560" key="com.intellij.ide.util.TipDialog" timestamp="1575889101373">
       <screen x="67" y="27" width="2493" height="1413" />
     </state>

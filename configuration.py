@@ -1,10 +1,11 @@
 import os
 
 #%% ENVIRONMENT VARIABLES
-os.environ['DATA_DIR_LOCAL'] = '/home/morgane/Calcium_imaging-master'
+os.environ['PROJECT_DIR_LOCAL'] = '/home/morgane/Calcium_imaging-master'
 os.environ['PROJECT_DIR_SERVER'] = 'Calcium_imaging/'
+os.environ['DATA_DIR_LOCAL'] = '/home/morgane/Calcium_imaging-master'
 
-os.environ['DATA_DIR_SERVER'] ='/scratch/morgane/calcium_imaging_analysis/'
+os.environ['DATA_DIR_SERVER'] ='data'
 
 os.environ['CAIMAN_ENV_SERVER'] = '/memdyn/maudrain/caiman/bin/python'
 
